@@ -23,6 +23,7 @@ window.addEventListener('load', ()=> {
     }
 });
 
+
 fetchWeatherInfo=(latitude, longitude, callBackFunc) => {
     const cors_proxy = "https://cors-anywhere.herokuapp.com/";
     const api_key = "YOUR_OPEN_WEATHER_API_KEY";
@@ -57,6 +58,7 @@ fetchWeatherInfo=(latitude, longitude, callBackFunc) => {
         });
 }
 
+
 fetchDateTimeInfo=(response, callBackFunc) => {
     const cors_proxy = "https://cors-anywhere.herokuapp.com/";
     const api_key = "YOUR_TIMEZONE_DB_API_KEY";
@@ -78,6 +80,7 @@ fetchDateTimeInfo=(response, callBackFunc) => {
             callBackFunc(response)
         });
 }
+
 
 createMarkerAndInfowindow=(response) => {
     const latitude = response.latitude
@@ -106,6 +109,7 @@ createMarkerAndInfowindow=(response) => {
     marker.setVisible(true);
     infowindow.open(map, marker);
 }
+
 
 initMap=() => {
     map = new google.maps.Map(document.getElementById("map"), {

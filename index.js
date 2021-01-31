@@ -52,3 +52,25 @@ fetchWeatherInfo=(latitude, longitude, callBackFunc) => {
             callBackFunc(response)
         });
 }
+
+fetchDateTimeInfo=(response, callBackFunc) => {
+    const cors_proxy = "https://cors-anywhere.herokuapp.com/";
+    const api_key = "YOUR_TIMEZONE_DB_API_KEY";
+    const api = `${cors_proxy}http://api.timezonedb.com/v2.1/get-time-zone?key=${api_key}&format=json&by=position&lat=${response.latitude}&lng=${response.longitude}`;
+    fetch(api)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            const tz_abbr = data.abbreviation;
+            const tz_name = data.zoneName;
+            const date_time = data.formatted;
+
+            response.tz_abbr = tz_abbr;
+            response.tz_name = tz_name;
+            response.date_time = date_time;
+            console.log("fetchDateTimeInfo Response : ", response);
+
+            callBackFunc(response)
+        });
+}

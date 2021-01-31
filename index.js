@@ -1,3 +1,5 @@
+var map, infowindow, infowindowContent, marker;
+
 window.addEventListener('load', ()=> {
     let latitude, longitude;
     if (navigator.geolocation){

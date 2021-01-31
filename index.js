@@ -6,6 +6,7 @@ window.addEventListener('load', ()=> {
         navigator.geolocation.getCurrentPosition(position => {
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
+            document.getElementById("pac-input").value="";
             fetchWeatherInfo(latitude, longitude, (weatherInfo) =>{
                 fetchDateTimeInfo(weatherInfo, createMarkerAndInfowindow)
             })
@@ -14,6 +15,7 @@ window.addEventListener('load', ()=> {
             console.log('Else Called')
             latitude = 28.6139;
             longitude = 77.2090;
+            document.getElementById("pac-input").value="";
             fetchWeatherInfo(latitude, longitude, (weatherInfo) =>{
                 fetchDateTimeInfo(weatherInfo, createMarkerAndInfowindow)
             })

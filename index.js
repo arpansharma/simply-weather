@@ -129,4 +129,30 @@ initMap=() => {
     */
     autocomplete.bindTo("bounds", map);
     autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
+
+    // Place change listener for automcomplete
+    autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+
+        if (!place.geometry) {
+            // User entered the name of a Place that was not suggested and
+            // pressed the Enter key, or the Place Details request failed.
+            window.alert("No details available for input: '" + place.name + "'");
+            return;
+        }
+
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(10);
+        }
+
+        const latitude = place.geometry.location.lat()
+        const longitude = place.geometry.location.lng()
+        fetchWeatherInfo(latitude, longitude, (weatherInfo) =>{
+            fetchDateTimeInfo(weatherInfo, createMarkerAndInfowindow)
+        })
+    });
 }

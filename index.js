@@ -155,4 +155,14 @@ initMap=() => {
             fetchDateTimeInfo(weatherInfo, createMarkerAndInfowindow)
         })
     });
+
+    map.addListener("click", (mouseClickEvent) => {
+        const latitude = mouseClickEvent.latLng.lat();
+        const longitude = mouseClickEvent.latLng.lng();
+        document.getElementById("pac-input").value = "";
+
+        fetchWeatherInfo(latitude, longitude, (weatherInfo) =>{
+            fetchDateTimeInfo(weatherInfo, createMarkerAndInfowindow)
+        })
+    });
 }

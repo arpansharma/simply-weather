@@ -74,3 +74,31 @@ fetchDateTimeInfo=(response, callBackFunc) => {
             callBackFunc(response)
         });
 }
+
+createMarkerAndInfowindow=(response) => {
+    const latitude = response.latitude
+    const longitude = response.longitude
+
+    // Removing elements from the map
+    infowindow.close();
+    marker.setVisible(false);
+    marker.setPosition({'lat': latitude, 'lng': longitude});
+    marker.setVisible(true);
+
+    console.log("createMarkerAndInfowindow Request :", response )
+
+    infowindow.setContent(infowindowContent);
+
+    infowindowContent.children["date-time"].textContent = response.date_time;
+    infowindowContent.children["timezone"].textContent = response.tz_name + " (" + response.tz_abbr + ")";
+    infowindowContent.children["current-temp"].textContent = "Current Temp : " + response.current_temp;
+    infowindowContent.children["minimum-temp"].textContent = "Minimum Temp : " + response.minimum_temp;
+    infowindowContent.children["maximum-temp"].textContent = "Maximum Temp : " + response.maximum_temp;
+    infowindowContent.children["weather-description"].textContent = "Weather : " + response.weather_description;
+
+    // Creating elements on the map
+    map.setCenter({'lat': latitude, 'lng': longitude});
+    map.setZoom(10);
+    marker.setVisible(true);
+    infowindow.open(map, marker);
+}

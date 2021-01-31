@@ -102,3 +102,31 @@ createMarkerAndInfowindow=(response) => {
     marker.setVisible(true);
     infowindow.open(map, marker);
 }
+
+initMap=() => {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 0, lng: 0 },
+        zoom: 2,
+    });
+
+    infowindow = new google.maps.InfoWindow();
+    infowindowContent = document.getElementById("infowindow-content");
+    infowindow.setContent(infowindowContent);
+    marker = new google.maps.Marker({
+        map,
+        anchorPoint: new google.maps.Point(0, -29),
+    });
+    
+    const card = document.getElementById("pac-card");
+    const input = document.getElementById("pac-input");
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
+    
+    const autocomplete = new google.maps.places.Autocomplete(input);
+
+    /*
+    Bind the map's bounds (viewport) property to the autocomplete object, so that
+    the autocomplete requests use the current map bounds for the bounds option in the request
+    */
+    autocomplete.bindTo("bounds", map);
+    autocomplete.setFields(["address_components", "geometry", "icon", "name"]);
+}
